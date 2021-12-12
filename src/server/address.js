@@ -1,3 +1,3 @@
-const endpoint = "http://localhost:4000/api/";
+const endpoint = "https://pointerbyshakil.herokuapp.com/api/";
 
 module.exports = endpoint;
