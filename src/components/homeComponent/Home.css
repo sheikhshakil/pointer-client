@@ -1,0 +1,27 @@
+.homeRow {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 70vh;
+}
+
+.homeRow p {
+  text-transform: uppercase;
+  font-size: 3.5rem;
+  font-weight: 700;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  background: -webkit-linear-gradient(
+    var(--colorPrimaryLight),
+    var(--yellow)
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+@media (max-width: 992px) {
+    .homeRow p {
+        font-size: 2.5rem;
+    }
+}
