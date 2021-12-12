@@ -7,6 +7,11 @@
 
 # testing
 /coverage
+/.github
+/.firebase
+
+#build
+/build
 
 # misc
 .DS_Store
