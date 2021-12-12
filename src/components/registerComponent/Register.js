@@ -1,8 +1,6 @@
 import React, { useState } from "react";
-import axios from "axios";
 import { toast } from "react-toastify";
-
-import endpoint from "../../server/address";
+import { getAuth, createUserWithEmailAndPassword } from "firebase/auth";
 import Loading from "../loadingComponent/Loading";
 
 function Register() {
@@ -34,39 +32,49 @@ function Register() {
     data.email = event.target.email.value;
     data.password = event.target.password.value;
 
-    //sending request to server endpoint to register the user
-    axios
-      .post(endpoint + "register", data)
-      .then((res) => {
+    //registering using firebase
+    const auth = getAuth();
+    createUserWithEmailAndPassword(auth, data.email, data.password)
+      .then(() => {
         //reg success
         setIsLoading(false);
-
-        toast.success(res.data, {
+        toast.success("Registration successful. Please login.", {
           autoClose: 7000,
         });
       })
       .catch((err) => {
         setIsLoading(false);
-
-        //if server sends error response
-        if (err.response) {
-          //if there are input validation errors
-          if (err.response.status === 400) {
-            setFormErrors(err.response.data);
-          } else {
-            //if other error happends regarding firebase
-            toast.error(err.response.data, {
-              autoClose: 7000,
-            });
-          }
-        } else {
-          //if pointer server connection fails
-          toast.error("Network error! Please check your connection.", {
-            autoClose: 7000,
-          });
-        }
-        console.log(err);
+        toast.error(err.message, {
+          autoClose: 7000,
+        });
       });
+
+    // //sending request to server endpoint to register the user
+    // axios
+    //   .post(endpoint + "register", data)
+    //   .then((res) => {})
+    //   .catch((err) => {
+    //     setIsLoading(false);
+
+    //     //if server sends error response
+    //     if (err.response) {
+    //       //if there are input validation errors
+    //       if (err.response.status === 400) {
+    //         setFormErrors(err.response.data);
+    //       } else {
+    //         //if other error happends regarding firebase
+    //         toast.error(err.response.data, {
+    //           autoClose: 7000,
+    //         });
+    //       }
+    //     } else {
+    //       //if pointer server connection fails
+    //       toast.error("Network error! Please check your connection.", {
+    //         autoClose: 7000,
+    //       });
+    //     }
+    //     console.log(err);
+    //   });
   };
 
   const form = (
